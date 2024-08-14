@@ -1,0 +1,18 @@
+<html>
+	<title>Chart Test</title>
+	<meta charset="utf-8" />
+	<body>
+		<h3 align=center>Custom Chart v0.1.0 Example</h3>
+		<div id="chart-div1" style="position:relative;left:20%;border:1px solid black;display:inline-block;"></div>
+		<div id="chart-div2" style="position:relative;left:20%;display:inline-block;"></div>
+		<script src="cchart.js"></script>
+		<script> let chart1 = cchart.create("chart-div1"); let chart2 = cchart.create("chart-div2", [500,170]);
+			chart1.options = {cname: "chart1"};
+			chart1.draw([[0,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,7],[9,7]]);
+			chart2.options = {cname: "chart2", color:"#119911", names:["name", "value"]};
+			chart2.draw([[0,7],[1,7],[2,7],[3,6],[4,5],[5,4],[6,3],[7,2],[8,1],[9,0],[10,20],[11,15]]);
+			//chart1.draw([[7,7],[8,7.01],[9,7]]);
+			//chart1.draw([["Апрель",0],["Май",1],["Июнь",2],["Июль",3],["Август",4],["Сентябрь",5],["Октябрь",6],["Ноябрь",7],["Декабрь",7],["Январь 2023",7],["ED",10],["ED",10],["ED",10],["ED",10],["ED",10],["ED",10]]);
+		</script>
+	</body>
+</html>
