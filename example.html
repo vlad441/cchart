@@ -2,27 +2,57 @@
 	<title>Chart Test</title>
 	<meta charset="utf-8" />
 	<body>
-		<h3 align=center>Custom Chart v0.1.1-x Example</h3>
-		<div id="chart-div1" style="position:relative;left:20%;border:1px solid black;display:inline-block;"></div>
-		<div id="chart-div2" style="position:relative;left:20%;display:inline-block;"></div>
+		<h3 align=center>Custom Chart <span id="cchart_ver">x.x.x-x</span> Example</h3>
+		<div id="chart-div1" style="position:relative;left:12%;border:1px solid black;display:inline-block;"></div>
+		<div id="chart-div2" style="position:relative;left:12%;display:inline-block;"></div>
 		<script src="cchart.js"></script>
-		<script> let chart1 = cchart.create("chart-div1"); let chart2 = cchart.create("chart-div2", [500,170]);
-			chart1.options = {cname: "chart1", colors:["#cccccc"]};
+		<script>document.getElementById("cchart_ver").innerHTML=CustomChart.version;
+			let chart1 = new CustomChart("chart-div1"); let chart2 = new CustomChart("chart-div2", [500,170]);
+			chart1.options = {name: "chart1", colors:["#800080"]};
 			chart1.draw([[0,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,7],[9,7]]);
-			//chart1.draw([["text1",0],["text2",1],["text3",2]]);
-			//chart2.options = {cname: "chart2", color:"#119911", names:["name", "value"]};
-			//chart2.draw([[0,7],[1,7],[2,7],[3,6],[4,5],[5,4],[6,3],[7,2],[8,1],[9,0],[10,20],[11,15]]);
+			//chart1.draw([0,4,2,3,4,5,6,7,7,7]); //Array<Number> - Допустимо: 1 неполный сет [0,4,2,...]
+			//chart1.options.setka=true; chart1.draw([["text1",0],["text2",1],["text3",2]]);
 			
-			chart2.options = {
-				cname: 'Multi-Line Chart',
+			//chart2.options = {name: "chart2", color:"#119911", names:["name", "value"]};
+			//chart2.draw([[0,7],[1,7],[2,7],[3,6],[4,5],[5,4],[6,3],[7,2],[8,1],[9,0],[10,20],[11,15]]);
+			chart2.options = { name: 'Multi-Line Chart',
 				colors: ['blue', 'red', 'green'],
 				names: [["1-x", "1-y"], ["2-x", "2-y"], ["3-x", "3-y"],],
 				legend: true, setka: true, };
+				
 			let dataSet1 = [[0,1],[1,3],[2,2],[3,5],[4,4]];
 			let dataSet2 = [[0,2],[1,4],[2,1],[3,3],[4,5]];
 			let dataSet3 = [[0,3],[1,2],[2,4],[3,1],[4,3]];
-			// Отрисовка графика с несколькими линиями
+			//let dataSet1 = [1,3,2]; let dataSet2 = [2,4,1]; let dataSet3 = [3,2,4];
+			//Отрисовка графика с несколькими линиями
 			chart2.draw([dataSet1, dataSet2, dataSet3]);
+			
+			// Самый предпочтительный и полный формат: Array<Array<[Number, Number]>> (N полных сетов)
+			// Допустимо: Array<Number> — парсер автоматически добавит индексы X.
+			// Рискованно: Array<[Number, Number]> — парсер попытается угадать: 
+			// это ОДИН полный сет или ДВА неполных сета по два значения в каждом.
 		</script>
+		<div>Опции:
+			<ul>
+			  <li>absolute: <code>&lt;bool&gt;</code> Абсолютная шкала</li>
+			  <li>legend: <code>&lt;bool&gt;</code> Отобразить значения</li>
+			  <li>simple: <code>&lt;bool&gt;</code> Без интерактива</li>
+			  <li>setka: <code>&lt;bool&gt;</code> сетка</li>
+			  <li>name: <code>&lt;String&gt;</code> Название графика</li>
+			  <li>names: <code>&lt;Array[NameX, NameY]&gt;</code> Имена координат</li>
+			  <li>color: <code>&lt;String&gt;</code> Цвет линии</li>
+			  <li>colors: <code>&lt;Array<String>&gt;</code> Цвет каждой линии</li>
+			  <li>delta(min/max)val: <code>&lt;int&gt;</code> тонкая настройка дельты - разница макс/мин</li>
+			  <li>columns: <code>&lt;int&gt;</code> Кол-во колонок</li>
+			</ul>
+			Функции:
+			<ul>
+			  <li>chart.draw(dataSets=[]): Нарисовать график</li>
+			  <li>chart.renderFunc(fn, limit = 10, step = 1, start = 0): Вычислить и нарисовать fn(x) на графике</li>
+			  <li>chart.randomizer(limit = 10): Нарисовать график с рандомными значениями до лимита x</li>
+			  <li>chart.clear(): Очистить график</li> 
+			  <li>CustomChart.calcFunc(fn, limit = 10, step = 1, start = 0): Вернуть dataSet от fn(x)</li>
+			</ul>
+		</div>
 	</body>
 </html>
